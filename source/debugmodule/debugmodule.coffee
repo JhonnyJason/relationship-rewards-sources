@@ -8,5 +8,7 @@ debugmodule.initialize = () ->
 debugmodule.modulesToDebug = 
     unbreaker: true
     configmodule: true
+    darlingspagemodule: true
+    settingspagemodule: true
 
 export default debugmodule
