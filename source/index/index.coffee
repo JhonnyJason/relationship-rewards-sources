@@ -1,16 +1,29 @@
 import Modules from "./allmodules"
 import domconnect from "./indexdomconnect"
 
+############################################################
 global.allModules = Modules
 
-
+############################################################
 window.onload = ->
     domconnect.initialize()
     promises = (m.initialize() for n,m of Modules)
     await Promise.all(promises)
-    appStartup()
+    await appStartup()
+    return
 
-
+############################################################
 appStartup = ->
-    ## which modules shall be kickstarted?
+    try
+        await Modules.authmodule.startupCheck()
+        await Modules.secretsmodule.updateSecrets()
+        await Modules.scoremodule.updateData()
+    catch err
+        errorMessage = """
+            Exception in App Startup!
+            So it might not work appropriately.
+            
+            #{err}
+            """
+        alert errorMessage
     return

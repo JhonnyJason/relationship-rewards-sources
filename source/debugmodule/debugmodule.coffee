@@ -7,10 +7,15 @@ debugmodule.initialize = () ->
 
 debugmodule.modulesToDebug = 
     unbreaker: true
-    authmodule: true
-    configmodule: true
+    # authmodule: true
+    # configmodule: true
     darlingspagemodule: true
-    settingspagemodule: true
-    utilmodule: true
+    # encryptionmodule: true
+    # networkmodule: true
+    # scoremodule: true
+    secretsmodule: true
+    # settingspagemodule: true
+    # statemodule: true
+    # utilmodule: true
 
 export default debugmodule

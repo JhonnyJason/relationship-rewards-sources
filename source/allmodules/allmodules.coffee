@@ -4,11 +4,14 @@ import darlingspagemodule from "./darlingspagemodule"
 import debugmodule from "./debugmodule"
 import deedsmodule from "./deedsmodule"
 import editdeedpagemodule from "./editdeedpagemodule"
+import encryptionmodule from "./encryptionmodule"
 import headermodule from "./headermodule"
 import manualaddframemodule from "./manualaddframemodule"
+import networkmodule from "./networkmodule"
 import newdeedpagemodule from "./newdeedpagemodule"
-import persistentstatemodule from "./persistentstatemodule"
+import statemodule from "./statemodule"
 import scoremodule from "./scoremodule"
+import secretsmodule from "./secretsmodule"
 import settingspagemodule from "./settingspagemodule"
 import slideinframemodule from "./slideinframemodule"
 import utilmodule from "./utilmodule"
@@ -20,11 +23,14 @@ Modules = {
     debugmodule,
     deedsmodule,
     editdeedpagemodule,
+    encryptionmodule,
     headermodule,
     manualaddframemodule,
+    networkmodule,
     newdeedpagemodule,
-    persistentstatemodule,
+    statemodule,
     scoremodule,
+    secretsmodule,
     settingspagemodule,
     slideinframemodule,
     utilmodule,
