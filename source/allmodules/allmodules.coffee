@@ -1,3 +1,4 @@
+import addbuttonmodule from "./addbuttonmodule"
 import authmodule from "./authmodule"
 import configmodule from "./configmodule"
 import darlingspagemodule from "./darlingspagemodule"
@@ -9,14 +10,15 @@ import headermodule from "./headermodule"
 import manualaddframemodule from "./manualaddframemodule"
 import networkmodule from "./networkmodule"
 import newdeedpagemodule from "./newdeedpagemodule"
-import statemodule from "./statemodule"
 import scoremodule from "./scoremodule"
 import secretsmodule from "./secretsmodule"
 import settingspagemodule from "./settingspagemodule"
 import slideinframemodule from "./slideinframemodule"
+import statemodule from "./statemodule"
 import utilmodule from "./utilmodule"
 
 Modules = {
+    addbuttonmodule,
     authmodule,
     configmodule,
     darlingspagemodule,
@@ -28,11 +30,11 @@ Modules = {
     manualaddframemodule,
     networkmodule,
     newdeedpagemodule,
-    statemodule,
     scoremodule,
     secretsmodule,
     settingspagemodule,
     slideinframemodule,
+    statemodule,
     utilmodule,
 }
 
