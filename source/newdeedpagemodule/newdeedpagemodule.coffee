@@ -10,36 +10,56 @@ print = (arg) -> console.log(arg)
 #endregion
 
 ############################################################
+deeds = null
+pointAdd = null
 slideinModule = null
+
+
+############################################################
+deedEditPointInput = null
+deedTextEdit = null
+
+defaultDeedText = "Edit here!"
 
 ############################################################
 newdeedpagemodule.initialize = () ->
     log "newdeedpagemodule.initialize"
+    deeds = allModules.deedsmodule
+    pointAdd = allModules.pointaddmodule
     slideinModule = allModules.slideinframemodule
     # newdeedpageContent.
     slideinModule.wireUp(newdeedpageContent, clearContent, applyContent)
+
+    deedEditPointInput = pointAdd.setup(newdeedpageContent)
+    deedTextEdit = deeds.getTextEdit(newdeedpageContent)
+    
+    clearContent()
     return
 
 ############################################################
 clearContent = ->
     log "clearContent"
-    # TODO implement
+    deedEditPointInput.value = 0
+    deedTextEdit.textContent = defaultDeedText
     return
 
 applyContent = ->
     log "applyContent"
-    #TODO implement
+    deedText = deedTextEdit.textContent
+    pointsToAdd = deedEditPointInput.value
+    deeds.addNewDeed(deedText, pointsToAdd)
+    clearContent()
     return
 
 ############################################################
 #region exposedFunctions
-newdeedpagemodule.turnDown = ->
-    log "newdeedpagemodule.turnDown"
+newdeedpagemodule.slideOut = ->
+    log "newdeedpagemodule.slideOut"
     slideinModule.slideoutForContentElement(newdeedpageContent)
     return
 
-newdeedpagemodule.turnUp = ->
-    log "newdeedpagemodule.turnUp"
+newdeedpagemodule.slideIn = ->
+    log "newdeedpagemodule.slideIn"
     slideinModule.slideinForContentElement(newdeedpageContent)
     return
 #endregion

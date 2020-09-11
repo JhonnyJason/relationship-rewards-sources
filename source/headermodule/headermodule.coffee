@@ -17,9 +17,9 @@ headermodule.initialize = ->
     log "headermodule.initialize"
     state = allModules.statemodule
 
-    headerLeft.addEventListener("click", allModules.darlingspagemodule.turnUp)
-    headerCenter.addEventListener("click", allModules.manualaddframemodule.turnUp)
-    headerRight.addEventListener("click", allModules.settingspagemodule.turnUp)
+    headerLeft.addEventListener("click", allModules.darlingspagemodule.slideIn)
+    headerCenter.addEventListener("click", allModules.manualaddframemodule.slideIn)
+    headerRight.addEventListener("click", allModules.settingspagemodule.slideIn)
 
     syncScoreFromState()
     state.addOnChangeListener("darlingScore", syncScoreFromState)

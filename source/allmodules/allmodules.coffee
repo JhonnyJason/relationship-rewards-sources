@@ -10,6 +10,7 @@ import headermodule from "./headermodule"
 import manualaddframemodule from "./manualaddframemodule"
 import networkmodule from "./networkmodule"
 import newdeedpagemodule from "./newdeedpagemodule"
+import pointaddmodule from "./pointaddmodule"
 import scoremodule from "./scoremodule"
 import secretsmodule from "./secretsmodule"
 import settingspagemodule from "./settingspagemodule"
@@ -30,6 +31,7 @@ Modules = {
     manualaddframemodule,
     networkmodule,
     newdeedpagemodule,
+    pointaddmodule,
     scoremodule,
     secretsmodule,
     settingspagemodule,

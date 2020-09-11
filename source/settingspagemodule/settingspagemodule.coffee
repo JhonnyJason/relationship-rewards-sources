@@ -30,7 +30,7 @@ settingspagemodule.initialize = () ->
     slideinModule.wireUp(settingspageContent, clearContent, applyContent)
 
     ##for debugging    
-    # settingspagemodule.turnUp()
+    # settingspagemodule.slideIn()
 
     idContent = idDisplay.getElementsByClassName("display-frame-content")[0]
     idDisplay.addEventListener("click", idDisplayClicked)
@@ -107,13 +107,13 @@ settingspagemodule.displayDataManagerURL = (url) ->
 
 
 ############################################################
-settingspagemodule.turnDown = ->
-    log "darlingspage.turnDown"
+settingspagemodule.slideOut = ->
+    log "darlingspage.slideOut"
     slideinModule.slideoutForContentElement(settingspageContent)
     return
 
-settingspagemodule.turnUp = ->
-    log "settingspagemodule.turnUp"
+settingspagemodule.slideIn = ->
+    log "settingspagemodule.slideIn"
     slideinModule.slideinForContentElement(settingspageContent)
     return
 

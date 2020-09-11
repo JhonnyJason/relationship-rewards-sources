@@ -10,8 +10,18 @@ print = (arg) -> console.log(arg)
 #endregion
 
 ############################################################
+newDeedPage = null
+
+############################################################
 addbuttonmodule.initialize = () ->
     log "addbuttonmodule.initialize"
+    newDeedPage = allModules.newdeedpagemodule
+    addbutton.addEventListener("click", addbuttonClicked)
     return
-    
+
+
+############################################################
+addbuttonClicked = -> newDeedPage.slideIn()
+
+
 module.exports = addbuttonmodule

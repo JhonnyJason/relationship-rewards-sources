@@ -112,12 +112,14 @@ applyStateChanges = ->
 
 ############################################################
 unsetState = ->
-    promises = []
+    allIds = []
+    nextDeedId = "0"
     promises.push state.set("darlingAddress", "")
     promises.push state.set("darlingScore", "")
     promises.push state.set("darlingIsConnected", false)
     promises.push state.set("myScore", "")
     await Promise.all(promises)
+    
     state.saveAll()
     return
 
@@ -172,7 +174,6 @@ setNewDarlingSecrets = ->
     olog response
     return
 
-
 ############################################################
 #region secretExtractionFunctions
 decryptSecret = (secrets) ->
@@ -212,7 +213,7 @@ secretsmodule.updateSecrets = ->
 
 ############################################################
 secretsmodule.connectDarling = ->
-    log "scoremodule.connectDarling"
+    log "secretsmodule.connectDarling"
     darlingAddress = state.load("darlingAddress")
     
     if !darlingAddress

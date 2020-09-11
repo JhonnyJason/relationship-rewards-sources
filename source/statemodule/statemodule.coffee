@@ -15,12 +15,14 @@ defaultState =
     darlingScore: ""
     darlingIsConnected: false
     myScore: ""
-    # "https://secrets.extensivlyon.coffee"
-    secretManagerURL: "https://localhost:6999" 
-    # "https://data.extensivlyon.coffee"
-    dataManagerURL: "https://localhost:6999" 
+    secretManagerURL: "https://secrets.extensivlyon.coffee"
+    # secretManagerURL: "https://localhost:6999" 
+    dataManagerURL: "https://data.extensivlyon.coffee"
+    # dataManagerURL: "https://localhost:6999" 
     secretKeyHex: ""
     publicKeyHex: ""
+    nextDeedId: "0"
+    deedIds: []
 
 
 ############################################################
@@ -74,7 +76,7 @@ statemodule.addOnChangeListener = (key, fun) ->
     log "statemodule.addOnChangeListener"
     if !listeners[key]? then listeners[key] = []
     listeners[key].push(fun)
-    return 
+    return
 
 statemodule.callOutChange = (key) ->
     log "statemodule.callOutChange"

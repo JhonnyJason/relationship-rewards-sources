@@ -12,7 +12,6 @@ print = (arg) -> console.log(arg)
 ############################################################
 #region localModules
 state = null
-score = null
 secrets = null
 slideinModule = null
 
@@ -22,7 +21,6 @@ slideinModule = null
 darlingspagemodule.initialize = () ->
     log "darlingspagemodule.initialize"
     state = allModules.statemodule
-    score = allModules.scoremodule
     secrets = allModules.secretsmodule
     slideinModule = allModules.slideinframemodule
     # darlingspageContent.
@@ -92,13 +90,13 @@ darlingspagemodule.displayMyScore = (myScore) ->
     return
 
 ############################################################
-darlingspagemodule.turnDown = ->
-    log "darlingspage.turnDown"
+darlingspagemodule.slideOut = ->
+    log "darlingspage.slideOut"
     slideinModule.slideoutForContentElement(darlingspageContent)
     return
 
-darlingspagemodule.turnUp = ->
-    log "darlingspagemodule.turnUp"
+darlingspagemodule.slideIn = ->
+    log "darlingspagemodule.slideIn"
     slideinModule.slideinForContentElement(darlingspageContent)
     secrets.updateSecrets()
     return

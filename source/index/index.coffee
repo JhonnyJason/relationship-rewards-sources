@@ -17,7 +17,6 @@ appStartup = ->
     try
         await Modules.authmodule.startupCheck()
         await Modules.secretsmodule.updateSecrets()
-        await Modules.scoremodule.updateData()
     catch err
         errorMessage = """
             Exception in App Startup!

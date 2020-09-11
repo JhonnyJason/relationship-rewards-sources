@@ -33,7 +33,7 @@ slideinframemodule.wireUp = (contentElement, clearContent, applyContent) ->
     backButton = i.getBackButtonForContentElement(contentElement)
     acceptButton = i.getAcceptButtonForContentElement(contentElement)
 
-    backButtonClicked = ->  
+    backButtonClicked = ->
         clearContent()
         slideoutFrame(frame)
         return
@@ -54,6 +54,7 @@ slideinframemodule.slideinForContentElement = (contentElement) ->
 
 slideinframemodule.slideoutForContentElement = (contentElement) ->
     frame = i.getFrameForContentElement(contentElement)
+    slideoutFrame(frame)
     return
 
 ############################################################
