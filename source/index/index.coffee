@@ -15,6 +15,7 @@ window.onload = ->
 ############################################################
 appStartup = ->
     try
+        registerServiceWorker()
         await Modules.authmodule.startupCheck()
         await Modules.secretsmodule.updateSecrets()
     catch err
@@ -25,4 +26,11 @@ appStartup = ->
             #{err}
             """
         alert errorMessage
+    return
+
+
+############################################################
+registerServiceWorker = ->
+    workerHandle = navigator.serviceWorker
+    if workerHandle? then workerHandle.register('/serviceworker.js')
     return
