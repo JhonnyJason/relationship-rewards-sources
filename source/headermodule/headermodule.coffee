@@ -18,8 +18,11 @@ headermodule.initialize = ->
     state = allModules.statemodule
 
     headerLeft.addEventListener("click", allModules.darlingspagemodule.slideIn)
+    # headerLeft.addEventListener("touchstart", allModules.darlingspagemodule.slideIn)
     headerCenter.addEventListener("click", allModules.manualaddframemodule.slideIn)
+    # headerCenter.addEventListener("touchstart", allModules.manualaddframemodule.slideIn)
     headerRight.addEventListener("click", allModules.settingspagemodule.slideIn)
+    # headerRight.addEventListener("touchstart", allModules.settingspagemodule.slideIn)
 
     syncScoreFromState()
     state.addOnChangeListener("darlingScore", syncScoreFromState)

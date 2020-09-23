@@ -43,7 +43,9 @@ slideinframemodule.wireUp = (contentElement, clearContent, applyContent) ->
         return
 
     backButton.addEventListener("click", backButtonClicked)
+    # backButton.addEventListener("touchstart", backButtonClicked)
     acceptButton.addEventListener("click", acceptButtonClicked)
+    # acceptButton.addEventListener("touchstart", acceptButtonClicked)
     return
 
 ############################################################

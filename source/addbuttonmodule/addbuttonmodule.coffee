@@ -17,6 +17,7 @@ addbuttonmodule.initialize = () ->
     log "addbuttonmodule.initialize"
     newDeedPage = allModules.newdeedpagemodule
     addbutton.addEventListener("click", addbuttonClicked)
+    # addbutton.addEventListener("touchstart", addbuttonClicked)
     return
 
 
