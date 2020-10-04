@@ -51,7 +51,7 @@ newSecretBytes = noble.utils.randomPrivateKey
 authmodule.startupCheck = ->
     log "authmodule.startupCheck"
 
-    if !secretKeyHex 
+    if !secretKeyHex
         secretKeyHex = utl.bytesToHex(newSecretBytes())
         state.save("secretKeyHex", secretKeyHex)
     if !publicKeyHex

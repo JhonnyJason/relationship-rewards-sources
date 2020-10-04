@@ -31,8 +31,14 @@ scoremodule.addScore = (score) ->
     return unless state.load("darlingAddress")
 
     darlingScore = state.load("darlingScore")
+
+    if !score or isNaN(score) then score = "0"
+    if !darlingScore or isNaN(darlingScore) then darlingScore = "0"
+
     newScoreNumber = parseInt(score) + parseInt(darlingScore)
     newScore = "" + newScoreNumber
+
+    if !newScore or isNaN(newScore) then newScore = 0
 
     state.save("darlingScore", newScore)
     return

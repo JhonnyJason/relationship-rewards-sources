@@ -1,7 +1,8 @@
 module.exports = {
     getDependencies: () => {
         return {
-            "noble-ed25519": "^1.0.1"
+            "mustache": "^4.0.1",
+            "noble-ed25519": "^1.0.2"
         }
     }
 }
