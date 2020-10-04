@@ -38,7 +38,7 @@ scoremodule.addScore = (score) ->
     newScoreNumber = parseInt(score) + parseInt(darlingScore)
     newScore = "" + newScoreNumber
 
-    if !newScore or isNaN(newScore) then newScore = 0
+    if !newScore or isNaN(newScore) then newScore = "0"
 
     state.save("darlingScore", newScore)
     return

@@ -16,6 +16,7 @@ state = null
 network = null
 encryption = null
 
+
 #endregion
 
 ############################################################
@@ -114,6 +115,8 @@ applyStateChanges = ->
 unsetState = ->
     allIds = []
     nextDeedId = "0"
+
+    promises = []
     promises.push state.set("darlingAddress", "")
     promises.push state.set("darlingScore", "")
     promises.push state.set("darlingIsConnected", false)

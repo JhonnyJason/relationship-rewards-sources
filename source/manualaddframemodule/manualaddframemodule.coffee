@@ -11,6 +11,7 @@ print = (arg) -> console.log(arg)
 
 ############################################################
 state = null
+score = null
 pointAdd = null
 slideinModule = null
 
@@ -20,6 +21,7 @@ manualScoreUpdateInput = null
 manualaddframemodule.initialize = () ->
     log "manualaddframemodule.initialize"
     state = allModules.statemodule
+    score = allModules.scoremodule
     pointAdd = allModules.pointaddmodule
     slideinModule = allModules.slideinframemodule
     # manualaddframeContent.
@@ -49,9 +51,7 @@ applyContent = ->
     currentInputValue = manualScoreUpdateInput.value
     manualScoreUpdateInput.value = 0
     currentInputValue = parseInt(currentInputValue)
-    score = currentInputValue + parseInt(state.load("darlingScore"))
-    scoreString = "" + score
-    state.save("darlingScore", scoreString)
+    score.addScore(currentInputValue)
     return
 
 

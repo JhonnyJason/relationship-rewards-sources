@@ -15,6 +15,7 @@ debugmodule.modulesToDebug =
     # editdeedpagemodule: true
     # encryptionmodule: true
     # networkmodule: true
+    # scoremodule: true
     # secretsmodule: true
     # slideinframemodule: true
     # settingspagemodule: true
