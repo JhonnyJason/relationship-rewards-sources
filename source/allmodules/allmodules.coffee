@@ -8,6 +8,7 @@ import editdeedpagemodule from "./editdeedpagemodule"
 import encryptionmodule from "./encryptionmodule"
 import headermodule from "./headermodule"
 import manualaddframemodule from "./manualaddframemodule"
+import networkmodule from "./networkmodule"
 import newdeedpagemodule from "./newdeedpagemodule"
 import oldnetworkmodule from "./oldnetworkmodule"
 import pointaddmodule from "./pointaddmodule"
@@ -29,6 +30,7 @@ Modules = {
     encryptionmodule,
     headermodule,
     manualaddframemodule,
+    networkmodule,
     newdeedpagemodule,
     oldnetworkmodule,
     pointaddmodule,
