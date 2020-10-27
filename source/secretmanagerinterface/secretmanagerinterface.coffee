@@ -79,7 +79,7 @@ secretmanagerinterface.stopSharingSecretTo = (sharedToId, secretId) ->
     timestamp = ""
     payload = {publicKey, sharedToId, secretId, timestamp}
     payload = await allModules.authmodule.signPayload(payload)
-     
+
     url = allModules.statemodule.load("secretManagerURL") + "/stopSharingSecretTo"
     return @postData(url, payload)
 

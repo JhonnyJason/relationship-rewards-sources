@@ -44,7 +44,7 @@ syncScoreToSecretManager = ->
     log "score: " + score
 
     log "... setting darlingScore"
-    response = await network.setSecret(score, "darlingScore", publicKeyHex)
+    response = await network.setSecret("darlingScore", score)
     olog response
 
     # await secretsmodule.updateSecrets()
@@ -57,7 +57,7 @@ loadSecretSpace = ->
     myId = state.load("publicKeyHex")
     
     # log "retrieveing the secret space..."
-    secrets = await network.getSecretSpace(myId)
+    secrets = await network.getSecretSpace()
     
     # olog secrets
     # log "decrypting the data..."
@@ -131,18 +131,18 @@ unsetSecrets = ->
     publicKeyHex = state.load("publicKeyHex")
 
     log "...delete darlingAddress as secret"
-    response = await network.deleteSecret("darlingAddress", publicKeyHex)
+    response = await network.deleteSecret("darlingAddress")
     olog response
     
     log "...delete darlingScore as secret"
-    response = await network.deleteSecret("darlingScore", publicKeyHex)
+    response = await network.deleteSecret("darlingScore")
     olog response
 
     oldAddress = await extractSecret("darlingAddress")
     return unless oldAddress
 
     log "...stop accepting sharedSecrets from my darling"
-    response = await network.stopAcceptingSecretsFrom(oldAddress, publicKeyHex)
+    response = await network.stopAcceptingSecretsFrom(oldAddress)
     olog response
     return
 
@@ -158,22 +158,22 @@ setNewDarlingSecrets = ->
     darlingAddress = state.load("darlingAddress")
 
     log "...set darlingAddress as secret"
-    response = await network.setSecret(darlingAddress, "darlingAddress",publicKeyHex)
+    response = await network.setSecret("darlingAddress", darlingAddress)
     olog response
 
     log "...start accepting sharedSecrets from my darling"
-    response = await network.startAcceptingSecretsFrom(darlingAddress, publicKeyHex)
+    response = await network.startAcceptingSecretsFrom(darlingAddress)
     olog response
 
     log "...start sharing the darlingScore to my darling"
-    response = await network.startSharingSecretTo(darlingAddress, "darlingScore", publicKeyHex)
+    response = await network.startSharingSecretTo(darlingAddress, "darlingScore")
     olog response
 
     darlingScore = "" + 0
     state.save("darlingScore", darlingScore)
 
     log "...set darlingScrore as secret"
-    response = await network.setSecret(darlingScore, "darlingScore", publicKeyHex)
+    response = await network.setSecret("darlingScore", darlingScore)
     olog response
     return
 

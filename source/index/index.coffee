@@ -15,7 +15,7 @@ window.onload = ->
 ############################################################
 appStartup = ->
     try
-        registerServiceWorker()
+        # registerServiceWorker()
         await Modules.authmodule.startupCheck()
         await Modules.secretsmodule.updateSecrets()
     catch err

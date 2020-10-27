@@ -59,7 +59,7 @@ authmodule.startupCheck = ->
         state.save("publicKeyHex", publicKeyHex)
 
     # check status with secretManager
-    try await network.addNodeId(publicKeyHex)
+    try await network.addNodeId()
     catch err then log err
     return
 
