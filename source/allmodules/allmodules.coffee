@@ -1,6 +1,7 @@
 import addbuttonmodule from "./addbuttonmodule"
 import authmodule from "./authmodule"
 import configmodule from "./configmodule"
+import darlingmodule from "./darlingmodule"
 import darlingspagemodule from "./darlingspagemodule"
 import debugmodule from "./debugmodule"
 import deedsmodule from "./deedsmodule"
@@ -10,10 +11,9 @@ import headermodule from "./headermodule"
 import manualaddframemodule from "./manualaddframemodule"
 import networkmodule from "./networkmodule"
 import newdeedpagemodule from "./newdeedpagemodule"
-import oldstatemodule from "./oldstatemodule"
 import pointaddmodule from "./pointaddmodule"
 import scoremodule from "./scoremodule"
-import secretsmodule from "./secretsmodule"
+import secretmanagerclientmodule from "./secretmanagerclientmodule"
 import settingspagemodule from "./settingspagemodule"
 import slideinframemodule from "./slideinframemodule"
 import statemodule from "./statemodule"
@@ -23,6 +23,7 @@ Modules = {
     addbuttonmodule,
     authmodule,
     configmodule,
+    darlingmodule,
     darlingspagemodule,
     debugmodule,
     deedsmodule,
@@ -32,10 +33,9 @@ Modules = {
     manualaddframemodule,
     networkmodule,
     newdeedpagemodule,
-    oldstatemodule,
     pointaddmodule,
     scoremodule,
-    secretsmodule,
+    secretmanagerclientmodule,
     settingspagemodule,
     slideinframemodule,
     statemodule,

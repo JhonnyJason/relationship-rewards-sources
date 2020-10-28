@@ -12,7 +12,7 @@ print = (arg) -> console.log(arg)
 ############################################################
 #region localModules
 state = null
-secrets = null
+darling = null
 slideinModule = null
 
 #endregion
@@ -21,7 +21,7 @@ slideinModule = null
 darlingspagemodule.initialize = () ->
     log "darlingspagemodule.initialize"
     state = allModules.statemodule
-    secrets = allModules.secretsmodule
+    darling = allModules.darlingmodule
     slideinModule = allModules.slideinframemodule
     # darlingspageContent.
     slideinModule.wireUp(darlingspageContent, clearContent, applyContent)
@@ -64,7 +64,7 @@ applyContent = ->
     darlingAddress = chosenDarlingAddress.value
     darlingAddress = darlingAddress.replace("0x", "")
     state.save("darlingAddress", darlingAddress)
-    await secrets.connectDarling()
+    await darling.connect()
     return
 
 #endregion
@@ -98,7 +98,7 @@ darlingspagemodule.slideOut = ->
 darlingspagemodule.slideIn = ->
     log "darlingspagemodule.slideIn"
     slideinModule.slideinForContentElement(darlingspageContent)
-    secrets.updateSecrets()
+    darling.synchronize()
     return
 #endregion
 

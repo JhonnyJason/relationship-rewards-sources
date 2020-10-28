@@ -46,7 +46,6 @@ encryptionmodule.createRandomLengthSalt = ->
         for byte,i in bytes when byte == 0
             return bytes.slice(0,i+1).toString("utf8")        
 
-
 encryptionmodule.removeSalt = (content) ->
     for char,i in content when char == "\0"
         return content.slice(i+1)
@@ -78,13 +77,13 @@ encryptionmodule.asymetricEncrypt = (content, publicKeyHex) ->
     # log lBigInt
     
     #A one time public key = reference Point
-    AHex = await encryptionmodule.getPublic(nHex)
+    AHex = await noble.getPublicKey(nHex)
     
     lB = await B.multiply(lBigInt)
     
     ## TODO generate AES key
     symkeyHex = await utl.sha512Hex(lB.toHex())
-    gibbrish = encryptionmodule.symetricEncryptHex(content, symkeyHex)
+    gibbrish = await encryptionmodule.symetricEncryptHex(content, symkeyHex)
     
     referencePoint = AHex
     encryptedContent = gibbrish
@@ -130,7 +129,7 @@ encryptionmodule.symetricEncryptHex = (content, keyHex) ->
         name: "AES-CBC"
         iv: ivBuffer
 
-    gibbrishBuffer = await crypto.encrypt(algorithm, key, gibbrishBuffer)
+    gibbrishBuffer = await crypto.encrypt(algorithm, key, contentBuffer)
     return utl.bytesToHex(gibbrishBuffer)
 
 encryptionmodule.symetricDecryptHex = (gibbrishHex, keyHex) ->
@@ -144,6 +143,7 @@ encryptionmodule.symetricDecryptHex = (gibbrishHex, keyHex) ->
     algorithm = 
         name: "AES-CBC"
         iv: ivBuffer
+
     contentBuffer = await crypto.decrypt(algorithm, key, gibbrishBuffer)
     return utl.bufferToUtf8(contentBuffer)
 #endregion

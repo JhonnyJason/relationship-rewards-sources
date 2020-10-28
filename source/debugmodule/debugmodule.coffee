@@ -8,15 +8,16 @@ debugmodule.initialize = () ->
 #####################################################
 debugmodule.modulesToDebug =
     unbreaker: true
-    authmodule: true
+    # authmodule: true
     # configmodule: true
     # darlingspagemodule: true
+    darlingmodule: true
     # deedsmodule: true
     # editdeedpagemodule: true
     # encryptionmodule: true
     # networkmodule: true
     # scoremodule: true
-    secretsmodule: true
+    secretmanagerclientmodule: true
     # slideinframemodule: true
     # settingspagemodule: true
     # statemodule: true

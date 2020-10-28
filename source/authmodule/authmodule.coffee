@@ -17,7 +17,6 @@ noble = require("noble-ed25519")
 #region localmodules
 utl = null
 state = null
-secrets = null
 network = null
 settingsPage = null
 
@@ -35,7 +34,6 @@ authmodule.initialize = ->
 
     utl = allModules.utilmodule
     state = allModules.statemodule
-    secrets = allModules.secretsmodule
     network = allModules.networkmodule
     settingsPage = allModules.settingspagemodule
 

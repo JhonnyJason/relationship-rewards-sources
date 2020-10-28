@@ -17,7 +17,7 @@ appStartup = ->
     try
         # registerServiceWorker()
         await Modules.authmodule.startupCheck()
-        await Modules.secretsmodule.updateSecrets()
+        await Modules.darlingmodule.synchronize()
     catch err
         errorMessage = """
             Exception in App Startup!
