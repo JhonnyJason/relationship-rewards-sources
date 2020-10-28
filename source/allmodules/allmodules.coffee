@@ -10,13 +10,12 @@ import headermodule from "./headermodule"
 import manualaddframemodule from "./manualaddframemodule"
 import networkmodule from "./networkmodule"
 import newdeedpagemodule from "./newdeedpagemodule"
-import oldnetworkmodule from "./oldnetworkmodule"
+import oldstatemodule from "./oldstatemodule"
 import pointaddmodule from "./pointaddmodule"
 import scoremodule from "./scoremodule"
 import secretsmodule from "./secretsmodule"
 import settingspagemodule from "./settingspagemodule"
 import slideinframemodule from "./slideinframemodule"
-import statemodule from "./statemodule"
 import utilmodule from "./utilmodule"
 
 Modules = {
@@ -32,13 +31,12 @@ Modules = {
     manualaddframemodule,
     networkmodule,
     newdeedpagemodule,
-    oldnetworkmodule,
+    oldstatemodule,
     pointaddmodule,
     scoremodule,
     secretsmodule,
     settingspagemodule,
     slideinframemodule,
-    statemodule,
     utilmodule,
 }
 
