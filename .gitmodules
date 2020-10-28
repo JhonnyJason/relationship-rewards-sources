@@ -4,3 +4,6 @@
 [submodule "source/networkmodule"]
 	path = source/networkmodule
 	url = git@github.com:JhonnyJason/pwa-sources-restnetworkmodule.git
+[submodule "source/statemodule"]
+	path = source/statemodule
+	url = git@github.com:JhonnyJason/pwa-sources-statemodule.git

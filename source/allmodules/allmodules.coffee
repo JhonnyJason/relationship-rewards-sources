@@ -16,6 +16,7 @@ import scoremodule from "./scoremodule"
 import secretsmodule from "./secretsmodule"
 import settingspagemodule from "./settingspagemodule"
 import slideinframemodule from "./slideinframemodule"
+import statemodule from "./statemodule"
 import utilmodule from "./utilmodule"
 
 Modules = {
@@ -37,6 +38,7 @@ Modules = {
     secretsmodule,
     settingspagemodule,
     slideinframemodule,
+    statemodule,
     utilmodule,
 }
 
