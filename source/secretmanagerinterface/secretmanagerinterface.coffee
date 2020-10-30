@@ -1,86 +1,53 @@
 secretmanagerinterface = {}
 
 ############################################################
-secretmanagerinterface.addNodeId = ->
-    publicKey = allModules.statemodule.load("publicKeyHex")
-    timestamp = ""
-    payload = {publicKey, timestamp}
-    payload = await allModules.authmodule.signPayload(payload)
-    url = allModules.statemodule.load("secretManagerURL") + "/addNodeId"
+secretmanagerinterface.addNodeId = (serverURL, publicKey, timestamp, signature) ->
+    payload = {publicKey, timestamp, signature}
+    url = serverURL+"/addNodeId"
     return @postData(url, payload)
     
-secretmanagerinterface.getSecretSpace = ->
-    publicKey = allModules.statemodule.load("publicKeyHex")
-    timestamp = ""
-    payload = {publicKey, timestamp}
-    payload = await allModules.authmodule.signPayload(payload)
+############################################################
+secretmanagerinterface.getSecretSpace = (serverURL, publicKey, timestamp, signature) ->
+    payload = {publicKey, timestamp, signature}
+    url = serverURL+"/getSecretSpace"
+    return @postData(url, payload)
 
-    url = allModules.statemodule.load("secretManagerURL") + "/getSecretSpace"
+secretmanagerinterface.getSecret = (serverURL, publicKey, secretId, timestamp, signature) ->
+    payload = {publicKey, secretId, timestamp, signature}
+    url = serverURL+"/getSecret"
     return @postData(url, payload)
 
 ############################################################
-secretmanagerinterface.getSecret = (secretId) ->
-    publicKey = allModules.statemodule.load("publicKeyHex")
-    timestamp = ""
-    payload = {publicKey, secretId, timestamp}
-    payload = await allModules.authmodule.signPayload(payload)
-    url = allModules.statemodule.load("secretManagerURL") + "/getSecret"
+secretmanagerinterface.setSecret = (serverURL, publicKey, secretId, secret, timestamp, signature) ->
+    payload = {publicKey, secretId, secret, timestamp, signature}
+    url = serverURL+"/setSecret"
     return @postData(url, payload)
 
-secretmanagerinterface.setSecret = (secretId, secret) ->
-    publicKey = allModules.statemodule.load("publicKeyHex")
-    timestamp = ""
-    payload = {publicKey, secretId, secret, timestamp}
-    payload = await allModules.authmodule.signPayload(payload)
-    
-    url = allModules.statemodule.load("secretManagerURL") + "/setSecret"
-    return @postData(url, payload)
-
-
-secretmanagerinterface.deleteSecret = (secretId) ->
-    publicKey = allModules.statemodule.load("publicKeyHex")
-    timestamp = ""
-    payload = {publicKey, secretId, timestamp}
-    payload = await allModules.authmodule.signPayload(payload)
-
-    url = allModules.statemodule.load("secretManagerURL") + "/deleteSecret"
+secretmanagerinterface.deleteSecret = (serverURL, publicKey, secretId, timestamp, signature) ->
+    payload = {publicKey, secretId, timestamp, signature}
+    url = serverURL+"/deleteSecret"
     return @postData(url, payload)
 
 ############################################################
-secretmanagerinterface.startAcceptingSecretsFrom = (fromId) ->
-    publicKey = allModules.statemodule.load("publicKeyHex")
-    timestamp = ""
-    payload = {publicKey, fromId, timestamp}
-    payload = await allModules.authmodule.signPayload(payload)
-    url = allModules.statemodule.load("secretManagerURL") + "/startAcceptingSecretsFrom"
+secretmanagerinterface.startAcceptingSecretsFrom = (serverURL, publicKey, fromId, timestamp, signature) ->
+    payload = {publicKey, fromId, timestamp, signature}
+    url = serverURL+"/startAcceptingSecretsFrom"
     return @postData(url, payload)
 
-secretmanagerinterface.stopAcceptingSecretsFrom = (fromId) ->
-    publicKey = allModules.statemodule.load("publicKeyHex")
-    timestamp = ""
-    payload = {publicKey, fromId, timestamp}
-    payload = await allModules.authmodule.signPayload(payload)
-    
-    url = allModules.statemodule.load("secretManagerURL") + "/stopAcceptingSecretsFrom"
+secretmanagerinterface.stopAcceptingSecretsFrom = (serverURL, publicKey, fromId, timestamp, signature) ->
+    payload = {publicKey, fromId, timestamp, signature}
+    url = serverURL+"/stopAcceptingSecretsFrom"
     return @postData(url, payload)
 
 ############################################################
-secretmanagerinterface.startSharingSecretTo = (shareToId, secretId) ->
-    publicKey = allModules.statemodule.load("publicKeyHex")
-    timestamp = ""
-    payload = {publicKey, shareToId, secretId, timestamp}
-    payload = await allModules.authmodule.signPayload(payload)
-
-    url = allModules.statemodule.load("secretManagerURL") + "/startSharingSecretTo"
+secretmanagerinterface.shareSecretTo = (serverURL, publicKey, shareToId, secretId, secret, timestamp, signature) ->
+    payload = {publicKey, shareToId, secretId, secret, timestamp, signature}
+    url = serverURL+"/shareSecretTo"
     return @postData(url, payload)
 
-secretmanagerinterface.stopSharingSecretTo = (sharedToId, secretId) ->
-    publicKey = allModules.statemodule.load("publicKeyHex")
-    timestamp = ""
-    payload = {publicKey, sharedToId, secretId, timestamp}
-    payload = await allModules.authmodule.signPayload(payload)
-
-    url = allModules.statemodule.load("secretManagerURL") + "/stopSharingSecretTo"
+secretmanagerinterface.deleteSharedSecret = (serverURL, publicKey, sharedToId, secretId, timestamp, signature) ->
+    payload = {publicKey, sharedToId, secretId, timestamp, signature}
+    url = serverURL+"/deleteSharedSecret"
     return @postData(url, payload)
 
 #endregion

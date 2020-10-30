@@ -68,6 +68,13 @@ authmodule.signPayload = (payload) ->
     payload.signature = await noble.sign(hashHex, secretKeyHex)
     return payload
 
+authmodule.createSignature = (payload, secretKeyHex) ->
+    log "authmodule.createSignature"
+    hashHex = await utl.sha256Hex(JSON.stringify(payload))
+    log hashHex
+    signature = await noble.sign(hashHex, secretKeyHex)
+    return signature
+
 #endregion
 
 module.exports = authmodule
