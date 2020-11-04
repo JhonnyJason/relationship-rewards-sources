@@ -44,7 +44,7 @@ encryptionmodule.createRandomLengthSalt = ->
     loop
         window.crypto.getRandomValues(bytes)
         for byte,i in bytes when byte == 0
-            return bytes.slice(0,i+1).toString("utf8")        
+            return utl.bufferToUtf8(bytes.slice(0,i+1))        
 
 encryptionmodule.removeSalt = (content) ->
     for char,i in content when char == "\0"

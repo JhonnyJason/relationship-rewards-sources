@@ -21,7 +21,7 @@ slideinModule = null
 idContent = null
 
 ############################################################
-settingspagemodule.initialize = () ->
+settingspagemodule.initialize = ->
     log "settingspagemodule.initialize"
     utl = allModules.utilmodule
     state = allModules.statemodule
@@ -29,15 +29,13 @@ settingspagemodule.initialize = () ->
     # settingspageContent.
     slideinModule.wireUp(settingspageContent, clearContent, applyContent)
 
-    ##for debugging    
-    # settingspagemodule.slideIn()
-
     idContent = idDisplay.getElementsByClassName("display-frame-content")[0]
     idDisplay.addEventListener("click", idDisplayClicked)
 
     syncIdFromState()
     syncSecretManagerURLFromState()
     syncDataManagerURLFromState()
+
     state.addOnChangeListener("publicKeyHex", syncIdFromState)
     state.addOnChangeListener("secretManagerURL", syncSecretManagerURLFromState)
     state.addOnChangeListener("dataManagerURL", syncDataManagerURLFromState)
@@ -62,8 +60,8 @@ applyContent = ->
     log "applyContent"
     secretManagerURL = secretManagerInput.value
     dataManagerURL = dataManagerInput.value
-    state.setSilently("secretManagerURL", secretManagerURL)
-    state.setSilently("dataManagerURL", dataManagerURL)
+    state.set("secretManagerURL", secretManagerURL)
+    state.set("dataManagerURL", dataManagerURL)
     state.saveAll()
     return
 

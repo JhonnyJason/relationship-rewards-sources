@@ -27,7 +27,7 @@ encryption = null
 ############################################################
 secretmanagerclientmodule.initialize = ->
     log "secretmanagerclientmodule.initialize"
-    utl = 
+    utl = allModules.utilmodule
     state = allModules.statemodule
     network = allModules.networkmodule
     encryption = allModules.encryptionmodule
@@ -38,7 +38,7 @@ class Client
     constructor: (@secretKeyHex, @publicKeyHex, @serverURL) ->
         @ready = addNodeId(this)
 
-    getSecretSpace:  ->
+    getSecretSpace: ->
         await @ready
         secret = await getSecretSpace(this)
         return await decrypt(secret, @secretKeyHex)
@@ -51,8 +51,9 @@ class Client
     getSecretFrom: (secretId, fromId) ->
         await @ready
         secretId = fromId+"."+secretId
-        secret = await getSecret(secretId, fromId, this)
+        secret = await getSecret(secretId, this)
         return await decrypt(secret, @secretKeyHex)
+
 
     setSecret: (secretId, secret) ->
         await @ready
@@ -91,26 +92,39 @@ newSecretBytes = noble.utils.randomPrivateKey
 
 ############################################################
 decrypt = (content, secretKey) ->
-    while content.encryptedContent?
+    log "decrypt"
+    # olog content
+    content = await encryption.asymetricDecrypt(content, secretKey)
+    # olog content
+    content = encryption.removeSalt(content)
+    try content = JSON.parse(content) 
+    catch err then return content # was no stringified Object
+
+    # log "we got to decrypt level 2!"
+    # olog content
+
+    if content.encryptedContent?
         content = await encryption.asymetricDecrypt(content, secretKey)
+        # olog {content}
         content = encryption.removeSalt(content)
-        content = JSON.parse(content)
+        try content = JSON.parse(content)
+        catch err then return content # was no stringified Object
+
     return content
 
 ############################################################
 encrypt = (content, publicKey) ->
-    return content
-
     if typeof content == "object" then content = JSON.stringify(content)
-    salt = encryption.createRandomLengthSalt()
+    salt = encryption.createRandomLengthSalt()    
     content = salt + content
 
     content = await encryption.asymetricEncrypt(content, publicKey)
-    return content
+    return JSON.stringify(content)
 
 ############################################################
-createSignature = (payload, route, secretKey) ->
-    hashHex = await utl.sha256Hex(JSON.stringify(payload))
+createSignature = (payload, route, secretKeyHex) ->
+    content = route+JSON.stringify(payload)
+    hashHex = await utl.sha256Hex(content)
     signature = await noble.sign(hashHex, secretKeyHex)
     return signature
 
@@ -207,7 +221,7 @@ deleteSharedSecret = (sharedToId, secretId, client) ->
     publicKey = client.publicKeyHex
     secretKey = client.secretKeyHex
     timestamp = ""
-    payload = {publicKey, shareToId, secretId, secret, timestamp}
+    payload = {publicKey, sharedToId, secretId, timestamp}
     route = "/deleteSharedSecret"
     signature = await createSignature(payload, route, secretKey)
     return await network.deleteSharedSecret(server, publicKey, sharedToId, secretId, timestamp, signature)

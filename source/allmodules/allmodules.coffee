@@ -1,7 +1,6 @@
 import addbuttonmodule from "./addbuttonmodule"
-import authmodule from "./authmodule"
+import appcoremodule from "./appcoremodule"
 import configmodule from "./configmodule"
-import darlingmodule from "./darlingmodule"
 import darlingspagemodule from "./darlingspagemodule"
 import debugmodule from "./debugmodule"
 import deedsmodule from "./deedsmodule"
@@ -21,9 +20,8 @@ import utilmodule from "./utilmodule"
 
 Modules = {
     addbuttonmodule,
-    authmodule,
+    appcoremodule,
     configmodule,
-    darlingmodule,
     darlingspagemodule,
     debugmodule,
     deedsmodule,

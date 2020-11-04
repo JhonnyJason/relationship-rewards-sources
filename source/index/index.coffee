@@ -16,14 +16,13 @@ window.onload = ->
 appStartup = ->
     try
         # registerServiceWorker()
-        await Modules.authmodule.startupCheck()
-        await Modules.darlingmodule.synchronize()
+        await Modules.appcoremodule.startUp()
     catch err
         errorMessage = """
             Exception in App Startup!
             So it might not work appropriately.
             
-            #{err}
+            #{err.stack}
             """
         alert errorMessage
     return
