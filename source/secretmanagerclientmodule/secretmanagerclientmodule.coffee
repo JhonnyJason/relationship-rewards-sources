@@ -16,7 +16,6 @@ noble = require("noble-ed25519")
 ############################################################
 #region localModules
 utl = null
-state = null
 network = null
 encryption = null
 
@@ -28,7 +27,6 @@ encryption = null
 secretmanagerclientmodule.initialize = ->
     log "secretmanagerclientmodule.initialize"
     utl = allModules.utilmodule
-    state = allModules.statemodule
     network = allModules.networkmodule
     encryption = allModules.encryptionmodule
     return
