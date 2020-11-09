@@ -5,7 +5,6 @@ import darlingspagemodule from "./darlingspagemodule"
 import debugmodule from "./debugmodule"
 import deedsmodule from "./deedsmodule"
 import editdeedpagemodule from "./editdeedpagemodule"
-import encryptionmodule from "./encryptionmodule"
 import headermodule from "./headermodule"
 import manualaddframemodule from "./manualaddframemodule"
 import networkmodule from "./networkmodule"
@@ -26,7 +25,6 @@ Modules = {
     debugmodule,
     deedsmodule,
     editdeedpagemodule,
-    encryptionmodule,
     headermodule,
     manualaddframemodule,
     networkmodule,

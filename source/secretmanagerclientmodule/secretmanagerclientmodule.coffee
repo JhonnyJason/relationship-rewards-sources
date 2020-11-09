@@ -12,13 +12,12 @@ print = (arg) -> console.log(arg)
 ############################################################
 #region modulesFromEnvironment
 noble = require("noble-ed25519")
+tbut = require("thingy-byte-utils")
+secUtl = require("secret-manager-crypto-utils")
 
 ############################################################
 #region localModules
-utl = null
 network = null
-encryption = null
-
 #endregion
 
 #endregion
@@ -26,9 +25,7 @@ encryption = null
 ############################################################
 secretmanagerclientmodule.initialize = ->
     log "secretmanagerclientmodule.initialize"
-    utl = allModules.utilmodule
     network = allModules.networkmodule
-    encryption = allModules.encryptionmodule
     return
 
 ############################################################
@@ -92,9 +89,9 @@ newSecretBytes = noble.utils.randomPrivateKey
 decrypt = (content, secretKey) ->
     log "decrypt"
     # olog content
-    content = await encryption.asymetricDecrypt(content, secretKey)
+    content = await secUtl.asymetricDecrypt(content, secretKey)
     # olog content
-    content = encryption.removeSalt(content)
+    content = secUtl.removeSalt(content)
     try content = JSON.parse(content) 
     catch err then return content # was no stringified Object
 
@@ -102,9 +99,9 @@ decrypt = (content, secretKey) ->
     # olog content
 
     if content.encryptedContent?
-        content = await encryption.asymetricDecrypt(content, secretKey)
+        content = await secUtl.asymetricDecrypt(content, secretKey)
         # olog {content}
-        content = encryption.removeSalt(content)
+        content = secUtl.removeSalt(content)
         try content = JSON.parse(content)
         catch err then return content # was no stringified Object
 
@@ -113,18 +110,16 @@ decrypt = (content, secretKey) ->
 ############################################################
 encrypt = (content, publicKey) ->
     if typeof content == "object" then content = JSON.stringify(content)
-    salt = encryption.createRandomLengthSalt()    
+    salt = secUtl.createRandomLengthSalt()    
     content = salt + content
 
-    content = await encryption.asymetricEncrypt(content, publicKey)
+    content = await secUtl.asymetricEncrypt(content, publicKey)
     return JSON.stringify(content)
 
 ############################################################
 createSignature = (payload, route, secretKeyHex) ->
     content = route+JSON.stringify(payload)
-    hashHex = await utl.sha256Hex(content)
-    signature = await noble.sign(hashHex, secretKeyHex)
-    return signature
+    return await secUtl.createSignature(content, secretKeyHex)
 
 #endregion
 
@@ -232,7 +227,7 @@ deleteSharedSecret = (sharedToId, secretId, client) ->
 ############################################################
 secretmanagerclientmodule.createClient = (secretKeyHex, publicKeyHex, serverURL) ->
     if !secretKeyHex
-        secretKeyHex = utl.bytesToHex(newSecretBytes())
+        secretKeyHex = tbut.bytesToHex(newSecretBytes())
         publicKeyHex = await noble.getPublicKey(secretKeyHex)
     if !publicKeyHex
         publicKeyHex = await noble.getPublicKey(secretKeyHex)

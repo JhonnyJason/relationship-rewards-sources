@@ -13,7 +13,6 @@ debugmodule.modulesToDebug =
     # darlingspagemodule: true
     # deedsmodule: true
     # editdeedpagemodule: true
-    # encryptionmodule: true
     networkmodule: true
     # scoremodule: true
     secretmanagerclientmodule: true
