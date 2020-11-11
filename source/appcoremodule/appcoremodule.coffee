@@ -74,7 +74,7 @@ onDarlingScoreChanged = ->
 onServerURLChanged = -> 
     log "onServerURLChanged"
     serverURL = state.load("secretManagerURL")
-    secretManagerClient.serverURL = serverURL
+    secretManagerClient.updateServerURL(serverURL)
     return
 
 ############################################################
