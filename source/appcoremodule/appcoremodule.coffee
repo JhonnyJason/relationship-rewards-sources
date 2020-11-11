@@ -10,9 +10,11 @@ print = (arg) -> console.log(arg)
 #endregion
 
 ############################################################
-#region localModules
+#region Modules
+secretManagerClientFactory = require("secret-manager-client")
+
+############################################################
 state = null
-secretManager = null
 
 #endregion
 
@@ -27,9 +29,8 @@ darlingScore = ""
 
 ############################################################
 appcoremodule.initialize = ->
-    log "appcoremodule.initialize"    
+    log "appcoremodule.initialize"
     state = allModules.statemodule
-    secretManager = allModules.secretmanagerclientmodule
 
     state.addOnChangeListener("darlingAddress", onDarlingAddressChanged)
     state.addOnChangeListener("darlingScore", onDarlingScoreChanged)
@@ -147,7 +148,7 @@ appcoremodule.startUp = ->
     publicKey = state.load("publicKeyHex")
     serverURL = state.load("secretManagerURL")
     
-    secretManagerClient = await secretManager.createClient(secretKey, publicKey, serverURL)
+    secretManagerClient = await secretManagerClientFactory.createClient(secretKey, publicKey, serverURL)
 
     ## for the case we just created new keys - like when they were missing :-)
     if secretManagerClient.secretKeyHex != secretKey 

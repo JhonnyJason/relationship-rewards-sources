@@ -13,9 +13,7 @@ debugmodule.modulesToDebug =
     # darlingspagemodule: true
     # deedsmodule: true
     # editdeedpagemodule: true
-    networkmodule: true
     # scoremodule: true
-    secretmanagerclientmodule: true
     # slideinframemodule: true
     # settingspagemodule: true
     # statemodule: true

@@ -7,11 +7,9 @@ import deedsmodule from "./deedsmodule"
 import editdeedpagemodule from "./editdeedpagemodule"
 import headermodule from "./headermodule"
 import manualaddframemodule from "./manualaddframemodule"
-import networkmodule from "./networkmodule"
 import newdeedpagemodule from "./newdeedpagemodule"
 import pointaddmodule from "./pointaddmodule"
 import scoremodule from "./scoremodule"
-import secretmanagerclientmodule from "./secretmanagerclientmodule"
 import settingspagemodule from "./settingspagemodule"
 import slideinframemodule from "./slideinframemodule"
 import statemodule from "./statemodule"
@@ -27,11 +25,9 @@ Modules = {
     editdeedpagemodule,
     headermodule,
     manualaddframemodule,
-    networkmodule,
     newdeedpagemodule,
     pointaddmodule,
     scoremodule,
-    secretmanagerclientmodule,
     settingspagemodule,
     slideinframemodule,
     statemodule,

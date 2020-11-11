@@ -25,7 +25,6 @@ indexdomconnect.initialize = () ->
     global.connectedIndicator = document.getElementById("connected-indicator")
     global.myScoreDisplay = document.getElementById("my-score-display")
     global.addbutton = document.getElementById("addbutton")
-    global.content = document.getElementById("content")
     global.deedviewHiddenTemplate = document.getElementById("deedview-hidden-template")
     global.deeds = document.getElementById("deeds")
     global.headerLeft = document.getElementById("header-left")
