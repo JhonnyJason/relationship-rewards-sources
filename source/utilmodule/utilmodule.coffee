@@ -13,6 +13,8 @@ print = (arg) -> console.log(arg)
 tbu = require("thingy-byte-utils")
 Object.assign(utilmodule, tbu)
 
+msgBox = require("./messageboxmodule")
+
 ############################################################
 utilmodule.initialize = () ->
     log "utilmodule.initialize"
@@ -21,7 +23,14 @@ utilmodule.initialize = () ->
 ############################################################
 #region exposedFunctions
 utilmodule.copyToClipboard = (text) ->
-    log "copyToClipboard"
+    try 
+        await navigator.clipboard.writeText(text)
+        log "Clipboard API succeeded"
+        if msgBox? then msgBox.info("Copied: "+text)
+        return
+    catch err then log err
+
+    ## Oldschool Method
     ## create element to select from
     copyElement = document.createElement("textarea")
     copyElement.value = text
@@ -40,6 +49,7 @@ utilmodule.copyToClipboard = (text) ->
 
     #remove element again
     document.body.removeChild(copyElement)
+    if msgBox? then msgBox.info("Copied: "+text)
     return
         
 #endregion

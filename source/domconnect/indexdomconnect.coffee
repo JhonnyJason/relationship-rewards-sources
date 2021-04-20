@@ -2,6 +2,9 @@ indexdomconnect = {name: "indexdomconnect"}
 
 ############################################################
 indexdomconnect.initialize = () ->
+    global.qrdisplayBackground = document.getElementById("qrdisplay-background")
+    global.qrdisplayContent = document.getElementById("qrdisplay-content")
+    global.qrdisplayQr = document.getElementById("qrdisplay-qr")
     global.manualaddframeContent = document.getElementById("manualaddframe-content")
     global.currentScoreDisplay = document.getElementById("current-score-display")
     global.editdeedpageContent = document.getElementById("editdeedpage-content")

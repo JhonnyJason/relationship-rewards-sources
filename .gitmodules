@@ -7,3 +7,6 @@
 [submodule "source/qrdisplaymodule"]
 	path = source/qrdisplaymodule
 	url = git@github.com:JhonnyJason/pwa-sources-qrdisplaymodule.git
+[submodule "source/messageboxmodule"]
+	path = source/messageboxmodule
+	url = git@github.com:JhonnyJason/pwa-sources-messageboxmodule.git

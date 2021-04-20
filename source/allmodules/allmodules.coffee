@@ -9,6 +9,7 @@ import headermodule from "./headermodule"
 import manualaddframemodule from "./manualaddframemodule"
 import newdeedpagemodule from "./newdeedpagemodule"
 import pointaddmodule from "./pointaddmodule"
+import qrdisplaymodule from "./qrdisplaymodule"
 import scoremodule from "./scoremodule"
 import settingspagemodule from "./settingspagemodule"
 import slideinframemodule from "./slideinframemodule"
@@ -27,6 +28,7 @@ Modules = {
     manualaddframemodule,
     newdeedpagemodule,
     pointaddmodule,
+    qrdisplaymodule,
     scoremodule,
     settingspagemodule,
     slideinframemodule,
