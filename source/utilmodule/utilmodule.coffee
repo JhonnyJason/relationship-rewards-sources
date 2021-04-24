@@ -22,6 +22,32 @@ utilmodule.initialize = () ->
 
 ############################################################
 #region exposedFunctions
+utilmodule.add0x = (hex) ->
+    if !hex? then throw new Error("add0x - undefined argument!")
+    return hex unless hex[0] != "0" or hex[1] != "x"
+    return "0x"+hex
+
+utilmodule.strip0x = (hex) ->
+    if !hex? then throw new Error("strip0x - undefined argument!")
+    return hex unless hex[0] == "0" and hex[1] == "x"
+    return hex.slice(2)
+
+############################################################
+utilmodule.seedToKey = (seed) ->
+    hashHex = await secUtl.sha512Hex(seed)
+    shift = parseInt(hashHex[0], 16) * 2
+    return hashHex.substr(shift, 64)
+
+############################################################
+utilmodule.isValidKey = (key) ->
+    return unless key?
+    key = utilmodule.strip0x(key)
+    return false unless key.length == 64
+    for c in key when parseInt(c,16) == NaN then return false
+    return true
+
+
+############################################################
 utilmodule.copyToClipboard = (text) ->
     try 
         await navigator.clipboard.writeText(text)

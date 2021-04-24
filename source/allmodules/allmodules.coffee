@@ -1,3 +1,4 @@
+import accountsettingsmodule from "./accountsettingsmodule"
 import addbuttonmodule from "./addbuttonmodule"
 import appcoremodule from "./appcoremodule"
 import configmodule from "./configmodule"
@@ -7,6 +8,7 @@ import deedsmodule from "./deedsmodule"
 import editdeedpagemodule from "./editdeedpagemodule"
 import headermodule from "./headermodule"
 import manualaddframemodule from "./manualaddframemodule"
+import messageboxmodule from "./messageboxmodule"
 import newdeedpagemodule from "./newdeedpagemodule"
 import pointaddmodule from "./pointaddmodule"
 import qrdisplaymodule from "./qrdisplaymodule"
@@ -17,6 +19,7 @@ import statemodule from "./statemodule"
 import utilmodule from "./utilmodule"
 
 Modules = {
+    accountsettingsmodule,
     addbuttonmodule,
     appcoremodule,
     configmodule,
@@ -26,6 +29,7 @@ Modules = {
     editdeedpagemodule,
     headermodule,
     manualaddframemodule,
+    messageboxmodule,
     newdeedpagemodule,
     pointaddmodule,
     qrdisplaymodule,

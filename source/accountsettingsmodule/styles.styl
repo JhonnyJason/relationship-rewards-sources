@@ -1,0 +1,96 @@
+// accountsettings styles
+picture-size ?= 90px
+id-copy-icon-size ?= 15px
+options-button-size ?= 30px
+cd-bright ?= white
+cd-dark ?= black 
+
+
+#accountsettings    
+    h3
+        margin 10px 0
+
+    #signature-import,
+    #floating-import,
+    #signature-export,
+    #floating-export,
+    #import-options-line,
+    #import-key-input,
+    #add-key-button
+        opacity: 0.2
+        pointer-events: none
+
+
+#id-display
+    width 100%
+    background-color cd-dark
+    display flex
+    padding 7px
+    box-sizing: border-box
+
+    .display-frame-content
+        text-overflow: ellipsis
+        overflow hidden
+        width "calc(100% - %s)" % id-copy-icon-size
+    .copy-icon
+        width id-copy-icon-size
+        height id-copy-icon-size
+
+#key-input-line
+    position relative
+
+#accept-key-button
+    display none
+    position absolute
+    left auto
+    right 0
+    top 50%
+    transform: translateY(-50%)
+    .click-button
+        padding (options-button-size / 4)
+    svg
+        width: options-button-size
+        height: options-button-size
+
+#export-options-line,
+#import-options-line,
+#add-delete-options-line
+    display flex
+    justify-content: space-around
+    .click-button
+        padding (options-button-size / 4)
+    svg
+        width: options-button-size
+        height: options-button-size
+
+#export-options-line,
+#import-options-line,
+#add-delete-options-line    
+    margin auto
+    max-width: 320px
+    margin-bottom: 30px
+    border solid 1px cd-dark
+
+
+#picture-display
+    width 90px
+    height 90px
+    background-color cd-bright
+    border-radius: 50%
+    outline none
+
+
+#accountsettings.no-key
+    #export-options-line,
+    #delete-key-button
+        opacity 0.2
+        pointer-events: none
+    #import-options-line,
+    #import-key-input,
+    #add-key-button
+        opacity 1
+        pointer-events: all
+
+#accountsettings.importing
+    #accept-key-button
+        display inline-block

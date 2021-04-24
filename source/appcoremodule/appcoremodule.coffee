@@ -11,16 +11,13 @@ print = (arg) -> console.log(arg)
 
 ############################################################
 #region Modules
-secretManagerClientFactory = require("secret-manager-client")
-
-############################################################
 state = null
-
+accountSettings = null
 #endregion
 
 ############################################################
 #region internalProperties
-secretManagerClient = null
+client = null
 
 darlingAddress = ""
 darlingScore = ""
@@ -31,14 +28,20 @@ darlingScore = ""
 appcoremodule.initialize = ->
     log "appcoremodule.initialize"
     state = allModules.statemodule
+    accountSettings = allModules.accountsettingsmodule
 
     state.addOnChangeListener("darlingAddress", onDarlingAddressChanged)
     state.addOnChangeListener("darlingScore", onDarlingScoreChanged)
-    state.addOnChangeListener("secretManagerURL", onServerURLChanged)
+    state.addOnChangeListener("accountId", onAccountChanged)
     return
     
 ############################################################
 #region internalFunctions
+onAccountChanged = ->
+    log "onAccountChanged"
+    client = accountSettings.getClient()
+    return
+
 onDarlingAddressChanged = ->
     log "onDarlingAddressChanged"
     newDarlingAddress = state.load("darlingAddress")
@@ -71,18 +74,12 @@ onDarlingScoreChanged = ->
     syncScoreToSecretManager()
     return
 
-onServerURLChanged = -> 
-    log "onServerURLChanged"
-    serverURL = state.load("secretManagerURL")
-    secretManagerClient.updateServerURL(serverURL)
-    return
-
 ############################################################
 syncScoreToSecretManager = ->
     log "syncScoreToSecretManager"
     try
-        await secretManagerClient.setSecret("darlingScore", darlingScore)
-        await secretManagerClient.shareSecretTo(darlingAddress, "darlingScore", darlingScore)
+        await client.setSecret("darlingScore", darlingScore)
+        await client.shareSecretTo(darlingAddress, "darlingScore", darlingScore)
     catch err then log err.stack
     return
 
@@ -92,9 +89,9 @@ disconnectFromDarling = ->
     olog {darlingAddress}
     await unsetState()
     olog {darlingAddress}
-    await secretManagerClient.deleteSecret("darlingAddress")
-    await secretManagerClient.deleteSecret("darlingScore")
-    await secretManagerClient.stopAcceptSecretsFrom(darlingAddress)
+    await client.deleteSecret("darlingAddress")
+    await client.deleteSecret("darlingScore")
+    await client.stopAcceptSecretsFrom(darlingAddress)
     return
 
 unsetState = ->
@@ -113,8 +110,8 @@ unsetState = ->
 connectToDarling = ->
     log "connectToDarling"
 
-    await secretManagerClient.setSecret("darlingAddress", darlingAddress)
-    await secretManagerClient.acceptSecretsFrom(darlingAddress)
+    await client.setSecret("darlingAddress", darlingAddress)
+    await client.acceptSecretsFrom(darlingAddress)
 
     darlingScore = "" + 0
     state.save("darlingScore", darlingScore)
@@ -127,7 +124,7 @@ connectToDarling = ->
 appcoremodule.downSync = ->
     log "appcoremodule.downSync"
     if darlingAddress
-        try myScore = await secretManagerClient.getSecretFrom("darlingScore", darlingAddress)
+        try myScore = await client.getSecretFrom("darlingScore", darlingAddress)
         catch err then log err.stack
             
     if myScore?
@@ -144,18 +141,9 @@ appcoremodule.downSync = ->
 
 appcoremodule.startUp = ->
     log "appcoremodule.startUp"
-    secretKey = state.load("secretKeyHex")
-    publicKey = state.load("publicKeyHex")
-    serverURL = state.load("secretManagerURL")
-    
-    secretManagerClient = await secretManagerClientFactory.createClient(secretKey, publicKey, serverURL)
-
-    ## for the case we just created new keys - like when they were missing :-)
-    if secretManagerClient.secretKeyHex != secretKey 
-        state.save("secretKeyHex", secretManagerClient.secretKeyHex)
-    if secretManagerClient.publicKeyHex != publicKey
-        state.save("publicKeyHex", secretManagerClient.publicKeyHex)
-
+    allModules.settingspagemodule.slideIn()
+    return
+    client = accountSettings.getClient()
     darlingAddress = state.load("darlingAddress")
     darlingScore = state.load("darlingScore")
     return
