@@ -13,3 +13,6 @@
 [submodule "source/qrreadermodule"]
 	path = source/qrreadermodule
 	url = git@github.com:JhonnyJason/pwa-sources-qrreadermodule.git
+[submodule "source/slideinframemodule"]
+	path = source/slideinframemodule
+	url = git@github.com:JhonnyJason/pwa-sources-slideinframemodule.git
