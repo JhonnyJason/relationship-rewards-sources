@@ -3,6 +3,7 @@ button-icon-size = 40px
 button-padding = 7px
 
 page-button-margin = button-icon-size + 2 * button-padding
+qr-icon-size = 30px
 
 // #darlingspage
 //     padding: page-button-margin 0
@@ -61,8 +62,17 @@ Coontent Styles
     width 100%
 
 #chosen-darling-address
-    margin-bottom 30px
+    margin-bottom 5px
 
+#scan-qr-line
+    display flex
+    justify-content: center
+    margin-bottom 30px
+    #scan-qr-button
+        padding 5px
+        svg
+            width: qr-icon-size
+            height: qr-icon-size
 
 #connected-indicator
     #not-connected-decoration

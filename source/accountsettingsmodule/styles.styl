@@ -6,7 +6,9 @@ cd-bright ?= white
 cd-dark ?= black 
 
 
-#accountsettings    
+#accountsettings
+    h1
+        margin-top 40px !important
     h3
         margin 10px 0
 
@@ -15,7 +17,7 @@ cd-dark ?= black
     #signature-export,
     #floating-export,
     #import-options-line,
-    #import-key-input,
+    #key-input-line,
     #add-key-button
         opacity: 0.2
         pointer-events: none
@@ -36,22 +38,33 @@ cd-dark ?= black
     .copy-icon
         width id-copy-icon-size
         height id-copy-icon-size
+#id-qr-line
+    display flex
+    justify-content: flex-end
+#id-qr-button
+    padding 5px
+    svg
+        width options-button-size
+        height options-button-size
 
 #key-input-line
     position relative
+    background-color cd-dark
+    input
+        width "calc(100% - %s)" % (options-button-size * 2)
 
 #accept-key-button
     display none
     position absolute
     left auto
-    right 0
+    right 3px
     top 50%
     transform: translateY(-50%)
     .click-button
         padding (options-button-size / 4)
     svg
-        width: options-button-size
-        height: options-button-size
+        width: options-button-size - 5px
+        height: options-button-size - 5px
 
 #export-options-line,
 #import-options-line,
@@ -61,8 +74,8 @@ cd-dark ?= black
     .click-button
         padding (options-button-size / 4)
     svg
-        width: options-button-size
-        height: options-button-size
+        width: options-button-size 
+        height: options-button-size 
 
 #export-options-line,
 #import-options-line,
@@ -87,7 +100,7 @@ cd-dark ?= black
         opacity 0.2
         pointer-events: none
     #import-options-line,
-    #import-key-input,
+    #key-input-line,
     #add-key-button
         opacity 1
         pointer-events: all

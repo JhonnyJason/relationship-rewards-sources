@@ -36,6 +36,7 @@ accountsettingsmodule.initialize = ->
     idContent = idDisplay.getElementsByClassName("display-frame-content")[0]
 
     idDisplay.addEventListener("click", idDisplayClicked)
+    idQrButton.addEventListener("click", idQrButtonClicked)
     addKeyButton.addEventListener("click", addKeyButtonClicked)
     deleteKeyButton.addEventListener("click", deleteKeyButtonClicked)
     importKeyInput.addEventListener("change", importKeyInputChanged)
@@ -99,6 +100,11 @@ displayId = (idHex) ->
 idDisplayClicked = ->
     log "idDisplayClicked"
     utl.copyToClipboard(idContent.textContent)
+    return
+
+idQrButtonClicked = ->
+    log "idDisplayClicked"
+    qrDisplay.displayCode(idContent.textContent)
     return
 
 ############################################################

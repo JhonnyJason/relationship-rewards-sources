@@ -13,6 +13,7 @@ print = (arg) -> console.log(arg)
 #region localModules
 state = null
 appcore = null
+qrReader = null
 slideinModule = null
 
 #endregion
@@ -22,9 +23,13 @@ darlingspagemodule.initialize = () ->
     log "darlingspagemodule.initialize"
     state = allModules.statemodule
     appcore = allModules.appcoremodule
+    qrReader = allModules.qrreadermodule
+
     slideinModule = allModules.slideinframemodule
     # darlingspageContent.
     slideinModule.wireUp(darlingspageContent, clearContent, applyContent)
+
+    scanQrButton.addEventListener("click", scanQrButtonClicked)
 
     syncAddressFromState()
     syncIsConnectedFromState()
@@ -52,6 +57,13 @@ syncMyScoreFromState = ->
     darlingspagemodule.displayMyScore(myScore)
     return
 
+############################################################
+scanQrButtonClicked = ->
+    log "scanQrButtonClicked"
+    try chosenDarlingAddress.value = await qrReader.read()
+    catch err then log err
+    return
+    
 ############################################################
 clearContent = ->
     log "clearContent"

@@ -5,7 +5,8 @@ block content
         h1 Choose your Darling!
         h2 Your Darlings' ID:
         input#chosen-darling-address(type="text" placeholder="Paste here")
-        
+        #scan-qr-line
+            #scan-qr-button.click-button: svg: use(href="#svg-qrscan-icon")
         #connected-indicator
             #not-connected-decoration
                 svg#not-connected-icon: use(href="#svg-sad-heart-icon")
