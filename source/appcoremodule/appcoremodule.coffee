@@ -141,8 +141,6 @@ appcoremodule.downSync = ->
 
 appcoremodule.startUp = ->
     log "appcoremodule.startUp"
-    allModules.settingspagemodule.slideIn()
-    return
     client = accountSettings.getClient()
     darlingAddress = state.load("darlingAddress")
     darlingScore = state.load("darlingScore")
