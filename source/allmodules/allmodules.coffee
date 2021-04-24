@@ -12,6 +12,7 @@ import messageboxmodule from "./messageboxmodule"
 import newdeedpagemodule from "./newdeedpagemodule"
 import pointaddmodule from "./pointaddmodule"
 import qrdisplaymodule from "./qrdisplaymodule"
+import qrreadermodule from "./qrreadermodule"
 import scoremodule from "./scoremodule"
 import settingspagemodule from "./settingspagemodule"
 import slideinframemodule from "./slideinframemodule"
@@ -33,6 +34,7 @@ Modules = {
     newdeedpagemodule,
     pointaddmodule,
     qrdisplaymodule,
+    qrreadermodule,
     scoremodule,
     settingspagemodule,
     slideinframemodule,

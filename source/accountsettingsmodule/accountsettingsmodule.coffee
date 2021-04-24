@@ -31,6 +31,7 @@ accountsettingsmodule.initialize = ->
     utl = allModules.utilmodule
     state = allModules.statemodule
     qrDisplay = allModules.qrdisplaymodule
+    qrReader = allModules.qrreadermodule
 
     idContent = idDisplay.getElementsByClassName("display-frame-content")[0]
 
@@ -145,7 +146,11 @@ acceptKeyButtonClicked = ->
 ############################################################
 qrScanImportClicked = ->
     log "qrScanImportClicked"
-    ##TODO implement
+    try
+        key = qrReader.read()
+        importKeyInput.value = key
+        importKeyInputChanged()
+    catch err then log err
     return
 
 floatingImportClicked = ->
@@ -181,11 +186,14 @@ signatureExportClicked = ->
 
 #endregion
 
-
 #endregion
 
 ############################################################
 #region exposedFunctions
 accountsettingsmodule.getClient = -> currentClient
 
+#endregion
+
 module.exports = accountsettingsmodule
+
+#92e102b2b2ef0d5b498fae3d7a9bbc94fc6ddc9544159b3803a6f4d239d76d62

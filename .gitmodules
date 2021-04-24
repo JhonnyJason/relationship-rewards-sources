@@ -10,3 +10,6 @@
 [submodule "source/messageboxmodule"]
 	path = source/messageboxmodule
 	url = git@github.com:JhonnyJason/pwa-sources-messageboxmodule.git
+[submodule "source/qrreadermodule"]
+	path = source/qrreadermodule
+	url = git@github.com:JhonnyJason/pwa-sources-qrreadermodule.git
