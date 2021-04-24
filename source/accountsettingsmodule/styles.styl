@@ -12,13 +12,15 @@ cd-dark ?= black
     h3
         margin 10px 0
 
-    #signature-import,
-    #floating-import,
-    #signature-export,
-    #floating-export,
-    #import-options-line,
+    #import-title,
     #key-input-line,
-    #add-key-button
+    #import-options-line
+        display: none
+    #add-key-button,
+    #floating-import,
+    #signature-import,
+    #floating-export,
+    #signature-export
         opacity: 0.2
         pointer-events: none
 
@@ -38,9 +40,12 @@ cd-dark ?= black
     .copy-icon
         width id-copy-icon-size
         height id-copy-icon-size
+
 #id-qr-line
+    overflow: hidden
     display flex
     justify-content: flex-end
+    
 #id-qr-button
     padding 5px
     svg
@@ -95,15 +100,23 @@ cd-dark ?= black
 
 
 #accountsettings.no-key
-    #export-options-line,
     #delete-key-button
         opacity 0.2
         pointer-events: none
-    #import-options-line,
-    #key-input-line,
+    #export-title,
+    #export-options-line
+        display none
+
     #add-key-button
         opacity 1
         pointer-events: all
+    
+    #import-title
+    #key-input-line
+        display: block
+    #import-options-line
+        display flex
+
 
 #accountsettings.importing
     #accept-key-button
