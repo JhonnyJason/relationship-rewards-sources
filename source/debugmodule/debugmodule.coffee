@@ -8,7 +8,7 @@ debugmodule.initialize = () ->
 #####################################################
 debugmodule.modulesToDebug =
     unbreaker: true
-    accountsettingsmodule: true
+    # accountsettingsmodule: true
     appcoremodule: true
     # configmodule: true
     # darlingspagemodule: true

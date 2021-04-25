@@ -36,7 +36,7 @@ manualaddframemodule.initialize = () ->
 ############################################################
 #region internalFunctions
 syncScoreFromState = ->
-    newScore = state.load("darlingScore")
+    newScore = state.get("darlingScore")
     currentScoreDisplay.textContent = newScore
     return
 
@@ -66,7 +66,7 @@ manualaddframemodule.slideOut = ->
 
 manualaddframemodule.slideIn = ->
     log "manualaddframemodule.slideIn"
-    return unless state.load("darlingAddress")
+    return unless state.get("darlingAddress")
     slideinModule.slideinForContentElement(manualaddframeContent)
     return
 

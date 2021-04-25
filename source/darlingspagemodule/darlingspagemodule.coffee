@@ -42,18 +42,18 @@ darlingspagemodule.initialize = () ->
 ############################################################
 #region internalFunctions
 syncAddressFromState = ->
-    darlingAddress = state.load("darlingAddress")
+    darlingAddress = state.get("darlingAddress")
     darlingspagemodule.displayDarlingAddress(darlingAddress)
     return
 
 syncIsConnectedFromState = ->
-    darlingIsConnected = state.load("darlingIsConnected")
+    darlingIsConnected = state.get("darlingIsConnected")
     # log "state of darlingIsConnected: " + darlingIsConnected
     darlingspagemodule.displayDarlingIsConnected(darlingIsConnected)
     return
 
 syncMyScoreFromState = ->
-    myScore = state.load("myScore")
+    myScore = state.get("myScore")
     darlingspagemodule.displayMyScore(myScore)
     return
 
@@ -75,7 +75,7 @@ applyContent = ->
     log "applyContent"
     darlingAddress = chosenDarlingAddress.value
     darlingAddress = darlingAddress.replace("0x", "")
-    state.save("darlingAddress", darlingAddress)
+    state.set("darlingAddress", darlingAddress)
     return
 
 #endregion
@@ -86,7 +86,8 @@ darlingspagemodule.displayDarlingAddress = (address) ->
     log "darlingspagemodule.displayDarlingAddress"
     if address
         if !(address.indexOf("0x") == 0) then address = "0x" + address  
-        chosenDarlingAddress.value = address 
+        chosenDarlingAddress.value = address
+    else chosenDarlingAddress.value = ""
     return
 
 darlingspagemodule.displayDarlingIsConnected = (isConnected) ->
@@ -109,7 +110,8 @@ darlingspagemodule.slideOut = ->
 darlingspagemodule.slideIn = ->
     log "darlingspagemodule.slideIn"
     slideinModule.slideinForContentElement(darlingspageContent)
-    appcore.downSync()
+    syncAddressFromState()
+    await appcore.downSync()
     return
 #endregion
 

@@ -122,6 +122,7 @@ addKeyButtonClicked = ->
 
 deleteKeyButtonClicked = ->
     log "deleteKeyButtonClicked"
+    currentClient = null
     state.save("publicKeyHex", "")
     state.save("secretKeyHex", "")
     state.save("accountId", "")
@@ -138,7 +139,7 @@ importKeyInputChanged = ->
 
 acceptKeyButtonClicked = ->
     log "acceptKeyButtonClicked"
-    key = importKeyInput.value
+    key = utl.strip0x(importKeyInput.value)
     return unless utl.isValidKey(key)
     serverURL = state.load("secretManagerURL")
     currentClient = await secretManagerClientFactory.createClient(key, null, serverURL)
@@ -153,7 +154,7 @@ acceptKeyButtonClicked = ->
 qrScanImportClicked = ->
     log "qrScanImportClicked"
     try
-        key = qrReader.read()
+        key = await qrReader.read()
         importKeyInput.value = key
         importKeyInputChanged()
     catch err then log err

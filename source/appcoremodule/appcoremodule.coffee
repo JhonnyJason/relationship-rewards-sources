@@ -22,6 +22,7 @@ client = null
 darlingAddress = ""
 darlingScore = ""
 
+accountReset = false
 #endregion
 
 ############################################################
@@ -40,11 +41,26 @@ appcoremodule.initialize = ->
 onAccountChanged = ->
     log "onAccountChanged"
     client = accountSettings.getClient()
+    if client?
+        log "we had a client!"
+        try 
+            darlingAddress = await client.getSecret("darlingAddress")
+            darlingScore = await client.getSecret("darlingScore")
+        catch err
+            log err.message
+            darlingAddress = ""
+            darlingScore = ""
+        await state.set("darlingAddress", darlingAddress)
+        await state.set("darlingScore", darlingScore)
+    else setStateNoAccount()
     return
 
 onDarlingAddressChanged = ->
     log "onDarlingAddressChanged"
-    newDarlingAddress = state.load("darlingAddress")
+    return if accountReset
+    if !client? then state.setSilently("darlingAddress", "")
+    
+    newDarlingAddress = state.get("darlingAddress")
     
     olog {newDarlingAddress}
     olog {darlingAddress}
@@ -54,6 +70,7 @@ onDarlingAddressChanged = ->
         try await disconnectFromDarling()
         catch err then log err.stack
         darlingAddress = ""
+        state.saveRegularState()
         return
     
     if darlingAddress and darlingAddress != newDarlingAddress
@@ -61,31 +78,65 @@ onDarlingAddressChanged = ->
         catch err then log err.stack
 
     darlingAddress = newDarlingAddress
-
+    
     try await connectToDarling()
-    catch err then log err.stack
+    catch err 
+        log err.stack
+        outstandingChanges = {}
+        outstandingChanges.darlingAddress = darlingAddress
+        state.save("outstandingChanges", outstandingChanges)
+
+    state.saveRegularState()
     return
 
 onDarlingScoreChanged = ->
     log "onDarlingScoreChanged"
-    darlingScore = state.load("darlingScore")
-    currentDarlingAddress = state.load("darlingAddress")
+    return if accountReset
+    if !client? 
+        await state.set("darlingScore", "")
+        return
+    
+    oldScoreString = darlingScore
+    darlingScore = state.get("darlingScore")
+    currentDarlingAddress = state.get("darlingAddress")
     return unless currentDarlingAddress
+
+    os = parseInt(oldScoreString)
+    if isNaN(os) then os = 0
+    ns = parseInt(darlingScore)
+    dif = ns - os
+    if !isNaN(dif) and dif != 0
+        outstandingChanges = state.get("outstandingChanges")|| {darlingScore: 0}
+        outstandingChanges.darlingScore += dif
+        state.save("outstandingChanges", outstandingChanges)
+
     syncScoreToSecretManager()
+    state.saveRegularState()
     return
 
 ############################################################
 syncScoreToSecretManager = ->
     log "syncScoreToSecretManager"
-    try
+    return unless client?
+
+    try 
         await client.setSecret("darlingScore", darlingScore)
-        await client.shareSecretTo(darlingAddress, "darlingScore", darlingScore)
-    catch err then log err.stack
+        state.remove("outstandingChanges")
+    catch err 
+        log err.stack
+        return
+
+    try await client.shareSecretTo(darlingAddress, "darlingScore", darlingScore)
+    catch err 
+        log err.stack
+        state.set("darlingAddress", "")
+
     return
 
 ############################################################
 disconnectFromDarling = ->
     log "disconnectFromDarling"
+    return unless client?
     olog {darlingAddress}
     await unsetState()
     olog {darlingAddress}
@@ -95,6 +146,7 @@ disconnectFromDarling = ->
     return
 
 unsetState = ->
+    log "unsetState"
     promises = []
 
     promises.push state.set("darlingAddress", "")
@@ -103,26 +155,81 @@ unsetState = ->
     promises.push state.set("myScore", "")
     await Promise.all(promises)
     
-    state.saveAll()
+    state.saveRegularState()
     return
 
 ############################################################
 connectToDarling = ->
     log "connectToDarling"
-
-    await client.setSecret("darlingAddress", darlingAddress)
+    return unless client?
     await client.acceptSecretsFrom(darlingAddress)
+    await client.setSecret("darlingAddress", darlingAddress)
 
     darlingScore = "" + 0
-    state.save("darlingScore", darlingScore)
+    await state.set("darlingScore", darlingScore)
     return
 
+############################################################
+triadeSync = ->
+    log "triadeSync"
+    try
+        clientDarlingAddress = await client.getSecret("darlingAddress")
+        clientDarlingScore = await client.getSecret("darlingScore")
+    catch err 
+        log err.stack
+        # probably we are offline -> so no sync
+        return
+
+    accountReset = true
+    # clientData > localData    
+    if clientDarlingAddress and clientDarlingAddress != darlingAddress
+        darlingAddress = clientDarlingAddress
+        await state.save("darlingAddress", darlingAddress)
+    if clientDarlingScore and clientDarlingScore != darlingScore
+        darlingScore = clientDarlingScore
+        await state.save("darlingScore", darlingScore)
+    accountReset = false
+
+    outstandingChanges = state.get("outstandingChanges")
+    return unless outstandingChanges?
+    state.remove("outstandingChanges")
+
+    changedAddress = outstandingChanges.darlingAddress
+    changedScore = outstandingChanges.darlingScore
+    score = parseInt(darlingScore)
+
+    if changedAddress? or score == NaN then score = 0
+    deltaScore = parseInt(changedScore)
+    if deltaScore != NaN then score += deltaScore
+
+    accountReset = true
+    if changedAddress?
+        darlingAddress = changedAddress
+        await state.save("darlingAddress", darlingAddress)
+    if score?
+        darlingScore = ""+score
+        await state.save("darlingScore", darlingScore)
+    accountReset = false
+    
+    syncScoreToSecretManager()
+
+    return
+
+setStateNoAccount = ->
+    log "setStateNoAccount"
+    accountReset = true
+    darlingAddress = ""
+    darlingScore = ""
+    await unsetState()
+    accountReset = false
+    return
 #endregion
 
 ############################################################
 #region exposedFunctions
 appcoremodule.downSync = ->
     log "appcoremodule.downSync"
+    return unless client?
     if darlingAddress
         try myScore = await client.getSecretFrom("darlingScore", darlingAddress)
         catch err then log err.stack
@@ -144,6 +251,8 @@ appcoremodule.startUp = ->
     client = accountSettings.getClient()
     darlingAddress = state.load("darlingAddress")
     darlingScore = state.load("darlingScore")
+    if client? then await triadeSync()
+    else setStateNoAccount()
     return
 
 #endregion

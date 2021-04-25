@@ -30,7 +30,7 @@ headermodule.initialize = ->
     
 ############################################################
 syncScoreFromState = ->
-    score = state.load("darlingScore")
+    score = state.get("darlingScore")
     darlingScoreDisplay.textContent = score
     return
 

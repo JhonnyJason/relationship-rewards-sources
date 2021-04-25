@@ -28,9 +28,9 @@ scoremodule.initialize = () ->
 #region exposedFunctions
 scoremodule.addScore = (score) ->
     log "scoremodule.addScore"
-    return unless state.load("darlingAddress")
+    return unless state.get("darlingAddress")
 
-    darlingScore = state.load("darlingScore")
+    darlingScore = state.get("darlingScore")
 
     if !score or isNaN(score) then score = "0"
     if !darlingScore or isNaN(darlingScore) then darlingScore = "0"
@@ -40,7 +40,7 @@ scoremodule.addScore = (score) ->
 
     if !newScore or isNaN(newScore) then newScore = "0"
 
-    state.save("darlingScore", newScore)
+    state.set("darlingScore", newScore)
     return
 
 #endregion
