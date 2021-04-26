@@ -16,3 +16,6 @@
 [submodule "source/slideinframemodule"]
 	path = source/slideinframemodule
 	url = git@github.com:JhonnyJason/pwa-sources-slideinframemodule.git
+[submodule "source/accountsettingsmodule"]
+	path = source/accountsettingsmodule
+	url = git@github.com:JhonnyJason/pwa-sources-accountsettingsmodule.git
