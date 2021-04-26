@@ -43,15 +43,17 @@ onAccountChanged = ->
     client = accountSettings.getClient()
     if client?
         log "we had a client!"
-        try 
+        accountReset = true
+        try
             darlingAddress = await client.getSecret("darlingAddress")
             darlingScore = await client.getSecret("darlingScore")
         catch err
             log err.message
             darlingAddress = ""
             darlingScore = ""
-        await state.set("darlingAddress", darlingAddress)
-        await state.set("darlingScore", darlingScore)
+        await state.save("darlingAddress", darlingAddress)
+        await state.save("darlingScore", darlingScore)
+        accountReset = false
     else setStateNoAccount()
     return
 
@@ -175,18 +177,26 @@ triadeSync = ->
     try
         clientDarlingAddress = await client.getSecret("darlingAddress")
         clientDarlingScore = await client.getSecret("darlingScore")
+        if typeof clientDarlingScore == "number" then clientDarlingScore = ""+clientDarlingScore
     catch err 
         log err.stack
         # probably we are offline -> so no sync
         return
 
+    # olog {clientDarlingAddress}
+    # olog {darlingAddress}
+    # olog {clientDarlingScore}
+    # olog {darlingScore}
+
     accountReset = true
     # clientData > localData    
     if clientDarlingAddress and clientDarlingAddress != darlingAddress
         darlingAddress = clientDarlingAddress
+        # log "should have downsynced darlingAddress!"
         await state.save("darlingAddress", darlingAddress)
     if clientDarlingScore and clientDarlingScore != darlingScore
         darlingScore = clientDarlingScore
+        # log "should have downsynced darlingScore!"
         await state.save("darlingScore", darlingScore)
     accountReset = false
 

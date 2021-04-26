@@ -62,8 +62,8 @@ accountsettingsmodule.initialize = ->
 createCurrentClient = ->
     log "createCurrentClient"
     try
-        key = state.load("secretKeyHex")
-        id = state.load("publicKeyHex")
+        key = utl.strip0x(state.load("secretKeyHex"))
+        id = utl.strip0x(state.load("publicKeyHex"))
         serverURL = state.get("secretManagerURL")
         if utl.isValidKey(key) and utl.isValidKey(id) then currentClient = await secretManagerClientFactory.createClient(key, id, serverURL)
     catch err then log err
